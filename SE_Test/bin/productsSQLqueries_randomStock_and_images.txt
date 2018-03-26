@@ -1,0 +1,524 @@
+drop database nanohps;
+create database nanohps;
+use nanohps;
+
+create table users(
+user_id int not null auto_increment,
+fname varchar(30) not null,
+lname varchar(30) not null,
+email varchar(40) not null,
+primary key (user_id)
+);
+
+create table products(
+product_id int not null auto_increment,
+name varchar(80) not null,
+description varchar(200) not null,
+in_stock int not null,
+price double(10,2) default 0.00 not null,
+imgurl varchar(200) not null,
+brand varchar(50) not null,
+primary key (product_id)
+);
+
+create table shipping(
+shipping_id int not null auto_increment,
+user_id int not null,
+fullname varchar(80) not null,
+address varchar(150) not null,
+postcode int(10) not null,
+city varchar(50) not null,
+province varchar(50) not null,
+phone_num int(15) not null,
+primary key (shipping_id),
+foreign key (user_id) references users (user_id) on delete cascade
+);
+
+create table orders(
+order_id int not null,
+user_id int not null,
+shipping_id int not null,
+product_id int not null,
+quantity int not null,
+total double(10,2) default 0.00 not null,
+order_date date default null,
+primary key (order_id),
+foreign key (user_id) references users (user_id) on delete cascade,
+foreign key (shipping_id) references shipping (shipping_id) on delete cascade,
+foreign key (product_id) references products (product_id) on delete cascade
+);
+
+insert into users values
+(
+1110,
+'\'Atif',
+'Mustaffa',
+'aretif95@gmail.com'
+),
+(
+0,
+'Hadi',
+'Noordin',
+'nanohps@gmail.com'
+),
+(
+0,
+'Hazim',
+'Muhammuddin',
+'hazimjoker@gmail.com'
+);
+
+insert into products values
+(
+45701,
+'Razer Blackwidow Ultimate Mechanical Keyboard',
+'Razer Switches: distinct tactile feel and faster response. Fully programmable macro. Media playback. Anti-ghosting.',
+5,
+489.00,
+'./images/products/razer/Razer Blackwidow Ultimate Mechanical Keyboard.jpg',
+'Razer'
+),
+(
+0,
+'Razer Blackwidow X Chroma RGB Mechanical Keyboard',
+'Customizable backlighting. Razer\'s award-winning Mechanical Switches. The crisp, tactile feel, responsiveness of keys. Extreme Durability.',
+3,
+639.00,
+'./images/products/razer/Razer Blackwidow X Chroma RGB Mechanical Keyboard.jpg',
+'Razer'
+),
+(
+0,
+'Razer Blackwidow X Tournament Chroma RGB Mechanical Keyboard',
+'Customizable backlighting. Razer\'s award-winning Mechanical Switches. The crisp, tactile feel, responsiveness of keys. Extreme Durability. Compact layout.',
+5,
+515.00,
+'./images/products/razer/Razer Blackwidow X Tournament Chroma RGB Mechanical Keyboard.jpg',
+'Razer'
+),
+(
+0,
+'Razer Blackwidow Chroma RGB Mechanical Keyboard',
+'Customizable backlighting. Razer\'s award-winning Mechanical Switches. The crisp, tactile feel, responsiveness of keys. Extreme Durability.',
+7,
+589.00,
+'./images/products/razer/Razer Blackwidow Chroma RGB Mechanical Keyboard.jpg',
+'Razer'
+),
+(
+0,
+'Razer Ouroboros Wireless Mouse',
+'Customizable ergonomics. Gaming-grade wireless technology. 11 programmable Hyperesponse buttons.',
+3,
+510.00,
+'./images/products/razer/Razer Ouroboros Wireless Mouse.jpg',
+'Razer'
+),
+(
+0,
+'Razer DeathAdder Chroma Mouse',
+'Ergonomic right-handed design. 10,000dpi optical sensor. Chroma lighting. Five independently programmable Hype response buttons.',
+4,
+189.00,
+'./images/products/razer/Razer DeathAdder Chroma Mouse.jpg',
+'Razer'
+),
+(
+0,
+'Razer Mamba Chroma Mouse',
+'Precise Gaming Mouse Sensor with 16,000dpi. Gaming Grade Wired-Wireless Technology. Chroma lighting. Five programmable buttons. Ergonomic comfort.',
+8,
+540.00,
+'./images/products/razer/Razer Mamba Chroma Mouse.jpg',
+'Razer'
+),
+(
+0,
+'Razer Chroma Kraken 7.1 Headset',
+'Advanced 7.1 virtual surround. Chroma lighting. Designed for extended gaming comfort.',
+4,
+412.00,
+'./images/products/razer/Razer Chroma Kraken 7.1 Headset.jpg',
+'Razer'
+),
+(
+0,
+'Razer Gaming HammerHead In-Ear Headset',
+'Advanced In-Ear phone. Great sound quality.',
+7,
+176.00,
+'./images/products/razer/Razer Gaming HammerHead In-Ear Headset.jpg',
+'Razer'
+),
+(
+0,
+'Razer ManO\'War Headset',
+'Decent wireless latency performance. 7.1 virtual surround. Chroma lighting. Designed for extended gaming comfort.',
+4,
+420.00,
+'./images/products/razer/Razer ManO\War Headset.jpg',
+'Razer'
+),
+(
+0,
+'Razer Firefly Chroma Hard Surface Mouse Mat',
+'Chroma backlighting. Precise and consistent surface.',
+3,
+224.00,
+'./images/products/razer/Razer Firefly Chroma Hard Surface Mouse Mat.jpg',
+'Razer'
+),
+(
+0,
+'Razer Goliathus Mouse Mat',
+'Specifically tailored for gaming. Great precision.',
+5,
+38.00,
+'./images/products/razer/Razer Goliathus Mouse Mat.jpg',
+'Razer'
+),
+(
+0,
+'Razer Gaming Backpack',
+'Military grade durability.',
+5,
+210.00,
+'./images/products/razer/Razer Gaming Backpack.jpg',
+'Razer'
+),
+(
+0,
+'Logitech G710+ Mechanical Keyboard',
+'Cherry MX Switches: Whisper-quiet keys. Full backlighting. Six dedicated programmable keys.',
+4,
+458.00,
+'./images/products/logitech/Logitech G710+ Mechanical Keyboard.jpg',
+'Logitech'
+),
+(
+0,
+'Logitech G910 Orion Spark RGB Mechanical Keyboard',
+'World\'s fastest RGB mechanical gaming keyboard. 9 programmable G-keys. Customizable RGB.',
+8,
+580.00,
+'./images/products/logitech/Logitech G910 Orion Spark RGB Mechanical Keyboard.jpg',
+'Logitech'
+),
+(
+0,
+'Logitech G810 Orion Spectrum RGB Mechanical Keyboard',
+'World\'s fastest RGB mechanical gaming keyboard. 9 programmable G-keys. Customizable RGB.',
+7,
+760.00,
+'./images/products/logitech/Logitech G810 Orion Spectrum RGB Mechanical Keyboard.jpg',
+'Logitech'
+),
+(
+0,
+'Logitech G502 Proteus Core Mouse',
+'RGB customizable lighting. Tunable weight and balance.',
+4,
+238.00,
+'./images/products/logitech/Logitech G502 Proteus Core Mouse.jpg',
+'Logitech'
+),
+(
+0,
+'Logitech G402 Hyperion Fury Mouse',
+'Fusion Engine hybrid sensor. 8 programmable buttons.',
+8,
+133.00,
+'./images/products/logitech/Logitech G402 Hyperion Fury Mouse.jpg',
+'Logitech'
+),
+(
+0,
+'Logitech G900 Chaos Spectrum Mouse',
+'Professional-grade Performance. Accurate sensor. CLock Tuning.',
+3,
+647.00,
+'./images/products/logitech/Logitech G900 Chaos Spectrum Mouse.jpg',
+'Logitech'
+),
+(
+0,
+'Logitech G430 Headset',
+'Dolby 7.1 surround sound. Built for comfort & gaming. Noise-cancelling boom mic.',
+6,
+238.00,
+'./images/products/logitech/Logitech G430 Headset.jpg',
+'Logitech'
+),
+(
+0,
+'Logitech G933 Artemis Spectrum Headset',
+'Pro-G audio & 7.1 Dolby Surround Sound. Adjustable lighting. Flexible wireless or wired connection up to 12-hours battery life.',
+6,
+762.00,
+'./images/products/logitech/Logitech G933 Artemis Spectrum Headset.jpg',
+'Logitech'
+),
+(
+0,
+'Logitech G231 Prodigy Headset',
+'Quality Stereo Sound. Sport Mesh Cloth Ear Cups. Lightweight Design.',
+7,
+212.00,
+'./images/products/logitech/Logitech G231 Prodigy Headset.jpg',
+'Logitech'
+),
+(
+0,
+'Logitech G240 Mouse Mat',
+'Crafted for control. Edge-to-edge performance. Comfortable cloth.',
+6,
+58.00,
+'./images/products/logitech/Logitech G240 Mouse Mat.jpg',
+'Logitech'
+),
+(
+0,
+'Corsair K70 RGB Mechanical Keyboard',
+'Cherry MX switches. Customizable RGB. Entire keyboard is programmable to assign a macro to any key. Aircraft-grade aluminium surface.',
+4,
+650.00,
+'./images/products/corsair/Corsair K70 RGB Mechanical Keyboard.jpg',
+'Corsair'
+),
+(
+0,
+'Corsair K65 Compact RGB Mechanical Keyboard',
+'Cherry MX switches. Keyboard Backlighting RGB LED.',
+3,
+540.00,
+'./images/products/corsair/Corsair K65 Compact RGB Mechanical Keyboard.jpg',
+'Corsair'
+),
+(
+0,
+'Corsair Strafe RGB Mechanical Keyboard',
+'Cherry MX switches.RGB LED Keyboard Backlighting. 100% Anti-Ghosting & 104 Key Rollover.',
+8,
+520.00,
+'./images/products/corsair/Corsair Strafe RGB Mechanical Keyboard.jpg',
+'Corsair'
+),
+(
+0,
+'Corsair M65 Pro RGB Mouse',
+'High-accuracy 12000 DPI sensor. Advanced weight tuning system. The build quality to last.',
+4,
+250.00,
+'./images/products/corsair/Corsair M65 Pro RGB Mouse.jpg',
+'Corsair'
+),
+(
+0,
+'Corsair Sabre RGB Mouse',
+'10000 dpi. Optical Sensor Type. Mouse Backlighting - 4 Zone RGB. Programmable keys.',
+4,
+230.00,
+'./images/products/corsair/Corsair Sabre RGB Mouse.jpg',
+'Corsair'
+),
+(
+0,
+'Corsair Scimitar MMO-MOBA RGB Mouse',
+'12000 DPI pro proven optical sensor. Dynamic RGB multicolor backlighting. 12 optimized mechanical buttons.',
+3,
+280.00,
+'./images/products/corsair/Corsair Scimitar MMO-MOBA RGB Mouse.jpg',
+'Corsair'
+),
+(
+0,
+'Corsair H2100 Dolby 7.1 Wireless Headset',
+'2.4GHz wireless. Dolby 7.1 surround. Comfortable foam ear pads. Advanced unidirectional noise-cancelling microphone.',
+7,
+673.00,
+'./images/products/corsair/Corsair H2100 Dolby 7.1 Wireless Headset.jpg',
+'Corsair'
+),
+(
+0,
+'Corsair Void 7.1 RGB Wireless Headset',
+'2.4GHz wireless. Dolby 7.1 surround. Comfortable foam ear pads.',
+7,
+518.00,
+'./images/products/corsair/Corsair Void 7.1 RGB Wireless Headset.jpg',
+'Corsair'
+),
+(
+0,
+'Corsair MM200 Large Mouse Mat',
+'Quick, high-precision movement. Optimized for gaming sensors.',
+8,
+75.00,
+'./images/products/corsair/Corsair MM200 Large Mouse Mat.jpg',
+'Corsair'
+),
+(
+0,
+'SteelSeries APEX M260 Mechanical Keyboard',
+'Kailh Switches. Light features six adjustable brightness level four. LED Orange.',
+4,
+460.00,
+'./images/products/steelseries/SteelSeries APEX M260 Mechanical Keyboard.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries APEX 350 RGB Keyboard',
+'SteelSeries Membrane. Anti ghosting (10 N-key rollover). Ergonomically built. Media Controls. Zone Lighting (5 zones including edges, Multi color, Variable Intensity LEDs).',
+8,
+510.00,
+'./images/products/steelseries/SteelSeries APEX 350 RGB Keyboard.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries 6GV2 Mechanical Keyboard',
+'Cherry MX. Extreme anti-ghosting. Features Steel Series media controls.',
+6,
+380.00,
+'./images/products/steelseries/SteelSeries 6GV2 Mechanical Keyboard.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries Dota 2 Special Edition Rival 100 Mouse',
+'SteelSeries Prism RGB Illumination. Free In-Game Item for Slark - Pale Edge.',
+7,
+160.00,
+'./images/products/steelseries/SteelSeries Dota 2 Special Edition Rival 100 Mouse.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries Sensei Laser Mouse',
+'CPI toggle for on-the-fly high-low sensitivity adjustments. Improved durability and tangle-free via the double braided nylon cord.',
+5,
+250.00,
+'./images/products/steelseries/SteelSeries Sensei Laser Mouse.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries CS:GO Fade Edition Rival 300 Mouse',
+'Zero Hardware Acceleration - precise tracking at all speeds.Configurable resolution up to 6,500 CPI.',
+5,
+260.00,
+'./images/products/steelseries/SteelSeries CS:GO Fade Edition Rival 300 Mouse.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries Siberia Elite Headset',
+'Dolby virtual 7.1 sound. Retractable unidirectional microphone for incredible clarity.',
+6,
+489.00,
+'./images/products/steelseries/SteelSeries Siberia Elite Headset.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries 9H Headset',
+'Dolby virtual 7.1 sound. Retractable microphone can activate noise-cancellation. Double enclosure design creates level of noise isolation unlike any other.',
+8,
+561.00,
+'./images/products/steelseries/SteelSeries 9H Headset.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries Siberia v2 Headset',
+'Closed ear headphones. Pull-out microphone. Pull-out Active Noise-Canceling microphone.',
+5,
+326.00,
+'./images/products/steelseries/SteelSeries Siberia v2 Headset.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries QcK Large Mouse Mat',
+'Smooth Mouse Mat build for gaming.',
+8,
+54.00,
+'./images/products/steelseries/SteelSeries QcK Large Mouse Mat.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries Control Edition Extra Large Mouse Mat',
+'Extra large size. Quick, high-precision movement control built for gaming.',
+6,
+74.00,
+'./images/products/steelseries/SteelSeries Control Edition Extra Large Mouse Mat.jpg',
+'SteelSeries'
+),
+(
+0,
+'SteelSeries Backpack',
+'Nylon. Durable and high-quality soft neoprene material.',
+4,
+115.00,
+'./images/products/steelseries/SteelSeries Backpack.jpg',
+'SteelSeries'
+),
+(
+0,
+'Cooler Master CM Storm QuickFire TK Mechanical Keyboard',
+'Mechanical Cherry MX switches. Compact and ergonomic layout with an integrated numpad section. Full backlighting.',
+6,
+378.00,
+'./images/products/cooler master cm storm/Cooler Master CM Storm QuickFire TK Mechanical Keyboard.jpg',
+'Cooler Master CM Storm'
+),
+(
+0,
+'Cooler Master CM Storm QuickFire Rapid-i Mechanical Keyboard',
+'Mechanical Cherry MX switches. Compact and ergonomic layout. Fully backlit with white LED.',
+8,
+432.00,
+'./images/products/cooler master cm storm/Cooler Master CM Storm QuickFire Rapid-i Mechanical Keyboard.jpg',
+'Cooler Master CM Storm'
+),
+(
+0,
+'Cooler Master CM Storm Mizar Mouse',
+'Palm Type 7 Colors LED Gaming Mouse. 8200 DPI. Soft Touch Paint Material.',
+7,
+210.00,
+'./images/products/cooler master cm storm/Cooler Master CM Storm Mizar Mouse.jpg',
+'Cooler Master CM Storm'
+),
+(
+0,
+'Cooler Master CM Storm Havoc Mouse',
+'8200 DPI. 8 programmable buttons. Rubber side grip for stability and fast mouse swipes.',
+3,
+175.00,
+'./images/products/cooler master cm storm/Cooler Master CM Storm Havoc Mouse.jpg',
+'Cooler Master CM Storm'
+),
+(
+0,
+'Cooler Master CM Storm Ceres 500 Headset',
+'Powerful 40mm drivers deliver highest sound quality.Over-ear, breathable mesh ear cups.',
+6,
+198.00,
+'./images/products/cooler master cm storm/Cooler Master CM Storm Ceres 500 Headset.jpg',
+'Cooler Master CM Storm'
+),
+(
+0,
+'Cooler Master CM Storm Swift Large Mouse Mat',
+'Large Size gaming Mouse Pad. Cloth Surface Material. Rubberized base material.',
+4,
+54.00,
+'./images/products/cooler master cm storm/Cooler Master CM Storm Swift Large Mouse Mat.jpg',
+'Cooler Master CM Storm'
+);
+
+select * from users;
+select product_id, name, brand, in_stock, price from products;
